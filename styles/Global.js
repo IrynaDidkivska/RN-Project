@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     marginBottom: 32,
     color: "#212121",
     fontSize: 30,
-    // fontWeight: 500,
+    fontWeight: "bold",
     textAlign: "center",
     letterSpacing: 0.3,
   },
@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
   togglePasswordBtn: {
     position: "absolute",
     right: 16,
-    top: 16,
+    top: 148,
   },
 
   primaryBtn: {

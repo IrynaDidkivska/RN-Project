@@ -12,7 +12,7 @@ import {
 import { styles } from "../styles/Global";
 import mainBg from "../images/mainBG.jpg";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, onChangeEmail] = React.useState("");
   const [pasword, onChangePassword] = React.useState("");
   return (
@@ -43,7 +43,10 @@ const LoginScreen = () => {
           <Text style={styles.primaryBtnText}>Увійти</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.secondaryBtn}>
+        <TouchableOpacity
+          style={styles.secondaryBtn}
+          onPress={() => navigation.navigate("RegistrationScreen")}
+        >
           <Text style={styles.secondaryBtnText}>
             Немає акаунту? Зареєструватися
           </Text>
