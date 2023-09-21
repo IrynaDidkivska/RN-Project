@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   mainBgImage: {
     flex: 1,
+    justifyContent: "flex-end",
+    resizeMode: "cover",
   },
   container: {
     flex: 1,
@@ -14,7 +16,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 79,
     paddingRight: 16,
     paddingLeft: 16,
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
   },
