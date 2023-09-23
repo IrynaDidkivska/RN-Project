@@ -17,28 +17,37 @@ import {
   Keyboard,
 } from "react-native";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
-const RegistrationScreen = ({ navigation }) => {
-  const [login, onChangeLogin] = React.useState("");
-  const [email, onChangeEmail] = React.useState("");
-  const [password, onChangePassword] = React.useState("");
+const RegistrationScreen = () => {
+  const navigation = useNavigation();
+  const [login, onChangeLogin] = useState("");
+  const [email, onChangeEmail] = useState("");
+  const [password, onChangePassword] = useState("");
   const [passwordHide, setPasswordHide] = useState(true);
 
   function togglePasswordShow() {
     setPasswordHide(!password);
   }
   const signUp = () => {
-    Alert.alert("Credentials", `Login: ${login}  Password: ${password}`);
+    Alert.alert("Credentials", `Login: ${login}  Email: ${email}`);
+    onChangeLogin("");
+    onChangeEmail("");
+    onChangePassword("");
   };
 
   return (
-    <ImageBackground style={styles.mainBgImage} source={mainBg}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <ImageBackground
+            style={styles.mainBgImage}
+            source={mainBg}
+            resizeMode="cover"
+          >
             <View style={styles.form}>
               <View style={styles.avatarWrapper}>
                 {/* <Image style={styles.avatar} source={avatar} /> */}
@@ -51,7 +60,7 @@ const RegistrationScreen = ({ navigation }) => {
                 <TextInput
                   placeholder="Логін"
                   style={styles.input}
-                  onChangeText={onChangeLogin}
+                  onChangeText={(text) => onChangeLogin(text.toLowerCase())}
                   value={login}
                 />
                 <TextInput
@@ -83,17 +92,19 @@ const RegistrationScreen = ({ navigation }) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.secondaryBtn}
-                onPress={() => navigation.navigate("LoginScreen")}
+                onPress={() =>
+                  navigation.navigate("LoginScreen", { Login: login })
+                }
               >
                 <Text style={styles.secondaryBtnText}>
                   Вже є акаунт? Увійти
                 </Text>
               </TouchableOpacity>
             </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </ImageBackground>
+          </ImageBackground>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -1,14 +1,18 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "flex-end",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+  },
   mainBgImage: {
     flex: 1,
     justifyContent: "flex-end",
     resizeMode: "cover",
-  },
-  container: {
-    flex: 1,
-    justifyContent: "flex-end",
+    width: "100%",
+    height: "100%",
   },
 
   form: {
@@ -17,8 +21,8 @@ export const styles = StyleSheet.create({
     paddingRight: 16,
     paddingLeft: 16,
     backgroundColor: "#ffffff",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
+    borderRadius: 25,
+    borderRadius: 25,
   },
   avatarWrapper: {
     position: "absolute",
