@@ -49,7 +49,7 @@ const RegistrationScreen = () => {
   async function selectAvatar() {
     const { granted } = await ImagePicker.getMediaLibraryPermissionsAsync();
     if (!granted) {
-      alert("Permission to access of the image library is required!");
+      Alert.alert("Permission to access of the image library is required!");
       return;
     }
 
@@ -122,7 +122,7 @@ const RegistrationScreen = () => {
                     onBlur={() => setFocusedField("")}
                     value={value}
                   />
-                  {error && Alert.alert("Login is required")()}
+                  {error && Alert.alert("Login is required")}
                 </View>
               )}
             />
