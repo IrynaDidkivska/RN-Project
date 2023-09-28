@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
-export const postStyles = StyleSheet.create({
+export const postsStyles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
     paddingTop: 32,
     backgroundColor: "#fff",
   },
@@ -19,7 +20,6 @@ export const postStyles = StyleSheet.create({
   userName: {
     color: "#212121",
     fontSize: 13,
-    fontWeight: "bold",
   },
   userEmail: {
     color: "#212121",

@@ -1,17 +1,29 @@
-import { TouchableOpacity, Alert } from "react-native";
+import { useEffect } from "react";
+import { TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
-import PostsScreen from "../Screens/PostsScreen/PostsScreen";
-import CreatePostsScreen from "../Screens/CreatePostsScreen/CreatePostsScreen";
-import ProfileScreen from "../Screens/ProfileScreen/ProfileScreen";
+import { useSelector, useDispatch } from "react-redux";
+import { selectIsLoggedIn } from "../redux/auth/authSelectors";
+import { logOut } from "../redux/auth/authOperations";
+import CreatePostScreen from "./CreatePostsScreen/CreatePostsScreen";
+import ProfileScreen from "./ProfileScreen/ProfileScreen";
+import PostsScreen from "./PostsScreen/PostsScreen";
 
 const Tabs = createBottomTabNavigator();
 
-const Home = () => {
+export default function Home() {
   const { navigate, goBack } = useNavigation();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const dispatch = useDispatch();
 
-  const headerIcon = (name, color) => (
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("LoginScreen");
+    }
+  }, [isLoggedIn]);
+
+  const tabBarIcon = (name, color) => (
     <Feather name={name} size={24} color={color} />
   );
 
@@ -21,7 +33,7 @@ const Home = () => {
       hitSlop={{ left: 16, right: 32 }}
       onPress={goBack}
     >
-      {headerIcon("arrow-left", "#212121")}
+      {tabBarIcon("arrow-left", "#212121")}
     </TouchableOpacity>
   );
 
@@ -29,9 +41,9 @@ const Home = () => {
     <TouchableOpacity
       style={{ marginRight: 16 }}
       hitSlop={{ left: 32, right: 16 }}
-      onPress={() => Alert.alert("Logout")}
+      onPress={() => dispatch(logOut())}
     >
-      {headerIcon("log-out", "#BDBDBD")}
+      {tabBarIcon("log-out", "#BDBDBD")}
     </TouchableOpacity>
   );
 
@@ -55,7 +67,7 @@ const Home = () => {
         },
         headerTitleStyle: {
           fontSize: 17,
-          fontWeight: 500,
+          fontWeight: "bold",
         },
       }}
     >
@@ -65,16 +77,20 @@ const Home = () => {
         options={{
           title: "Публікації",
           headerRight: () => logOutButton,
-          tabBarIcon: ({ color }) => headerIcon("grid", color),
+          tabBarIcon: ({ color }) => tabBarIcon("grid", color),
         }}
       />
       <Tabs.Screen
-        name="CreatePostsScreen"
-        component={CreatePostsScreen}
+        name="CreatePostScreen"
+        component={CreatePostScreen}
         options={{
           title: "Створити публікацію",
+          tabBarStyle: {
+            height: 0,
+          },
+          tabBarStyle: { display: "none" },
           headerLeft: () => goBackBtn,
-          tabBarIcon: ({ color }) => headerIcon("plus", color),
+          tabBarIcon: ({ color }) => tabBarIcon("plus", color),
         }}
       />
       <Tabs.Screen
@@ -82,11 +98,9 @@ const Home = () => {
         component={ProfileScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => headerIcon("user", color),
+          tabBarIcon: ({ color }) => tabBarIcon("user", color),
         }}
       />
     </Tabs.Navigator>
   );
-};
-
-export default Home;
+}

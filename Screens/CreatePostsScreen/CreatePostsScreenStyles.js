@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+export const createPostsStyles = StyleSheet.create({
   container: {
     flex: 1,
     paddingLeft: 16,
@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
   },
-  image: {
+  imgSize: {
     width: "100%",
     height: "100%",
     borderRadius: 8,
@@ -34,12 +34,16 @@ export const styles = StyleSheet.create({
   transparent: {
     backgroundColor: "rgba(255, 255, 255, 0.30)",
   },
-  imgText: {
+  cameraText: {
     marginTop: 8,
     color: "#BDBDBD",
     fontSize: 16,
   },
-
+  warning: {
+    color: "red",
+    fontSize: 18,
+    textAlign: "center",
+  },
   inputsList: {
     rowGap: 16,
     marginVertical: 32,
@@ -55,12 +59,11 @@ export const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     fontSize: 16,
-    fontWeight: "500",
     color: "#212121",
   },
   submitBtn: {
+    marginBottom: 120,
     alignItems: "center",
-    marginBottom: 111,
     padding: 16,
     fontSize: 16,
     backgroundColor: "#F6F6F6",
@@ -76,7 +79,7 @@ export const styles = StyleSheet.create({
   activeText: {
     color: "#ffffff",
   },
-  deletePostBtn: {
+  resetBtn: {
     width: 70,
     height: 40,
     alignItems: "center",

@@ -1,54 +1,80 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  Alert,
-  StyleSheet,
-} from "react-native";
-import postimg from "../images/post.jpg";
-import { EvilIcons } from "@expo/vector-icons";
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { FontAwesome, AntDesign, Feather } from "@expo/vector-icons";
 
-const Post = () => {
+import { addLike } from "../redux/posts/postsOperations";
+import defaultImage from "../images/img-NF.jpeg";
+
+export default function Post({ post }) {
+  const { id, image, title, comments, likes, place, mapLocation } = post;
+  const isAnyComment = comments.length > 0;
+
+  const { navigate } = useNavigation();
+  const dispatch = useDispatch();
+
   return (
-    <View style={singlePostStyle.container}>
-      <TouchableOpacity style={singlePostStyle.imgWrapper}>
-        <Image style={singlePostStyle.image} source={postimg} />
+    <View style={styles.postItem}>
+      <TouchableOpacity style={styles.imgWrapper}>
+        <Image
+          style={styles.image}
+          source={image ? { uri: image } : defaultImage}
+        />
       </TouchableOpacity>
 
-      <Text style={singlePostStyle.imgText}>Ліс</Text>
-      <View style={singlePostStyle.wrapper}>
-        <View style={singlePostStyle.commentWrapper}>
-          <EvilIcons
-            name="comment"
-            size={24}
-            style={{
-              transform: [{ scaleX: -1 }],
-            }}
-            color="#BDBDBD"
-          />
-          <Text style={singlePostStyle.commentText}>0</Text>
+      <Text style={styles.title}>{title}</Text>
+
+      <View style={styles.info}>
+        <View style={styles.statistics}>
+          <TouchableOpacity
+            style={styles.statItem}
+            onPress={() => navigate("CommentsScreen", { id })}
+          >
+            <FontAwesome
+              name={isAnyComment ? "comment" : "comment-o"}
+              size={24}
+              style={{
+                transform: [{ scaleX: -1 }],
+              }}
+              color={isAnyComment ? "#FF6C00" : "#BDBDBD"}
+            />
+            <Text
+              style={[styles.statText, !isAnyComment && styles.transparent]}
+            >
+              {comments.length}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.statItem}
+            onPress={() => dispatch(addLike(id))}
+          >
+            <AntDesign
+              name="like2"
+              size={24}
+              color={likes ? "#FF6C00" : "#BDBDBD"}
+            />
+            <Text style={[styles.statText, !likes && styles.transparent]}>
+              {likes}
+            </Text>
+          </TouchableOpacity>
         </View>
-        <View style={singlePostStyle.locationWrapper}>
-          <EvilIcons name="location" size={28} color="#BDBDBD" />
-          <Text style={singlePostStyle.locationText}>
-            Ivano-Frankivs'k Region, Ukraine
-          </Text>
-        </View>
+
+        <TouchableOpacity
+          style={styles.statItem}
+          onPress={() => navigate("MapScreen", { mapLocation })}
+        >
+          <Feather name="map-pin" size={24} color="#BDBDBD" />
+          <Text style={[styles.statText, styles.underline]}>{place}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
-};
+}
 
-export default Post;
-
-export const singlePostStyle = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#fff",
+const styles = StyleSheet.create({
+  postItem: {
+    marginBottom: 32,
   },
   imgWrapper: {
     height: 240,
@@ -62,34 +88,36 @@ export const singlePostStyle = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
+    alignSelf: "center",
     borderRadius: 8,
   },
-  imgText: {
-    marginTop: 8,
+  title: {
+    marginVertical: 8,
     color: "#212121",
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "medium",
   },
-  wrapper: {
-    display: "flex",
+  info: {
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
   },
-  commentWrapper: {
-    display: "flex",
+  statistics: {
     flexDirection: "row",
-    marginTop: 8,
+    columnGap: 24,
   },
-  commentText: { color: "#BDBDBD", fontSize: 16 },
-  locationWrapper: {
-    display: "flex",
+  statItem: {
     flexDirection: "row",
-    marginTop: 8,
+    alignItems: "center",
   },
-  locationText: {
+  statText: {
     color: "#212121",
     fontSize: 16,
+    marginLeft: 6,
+  },
+  transparent: {
+    color: "#BDBDBD",
+  },
+  underline: {
     textDecorationLine: "underline",
   },
 });

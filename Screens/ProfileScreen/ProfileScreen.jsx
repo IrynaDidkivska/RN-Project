@@ -1,58 +1,90 @@
-import React from "react";
-import { profileStyles } from "./ProfileScreenStyles";
-import { styles } from "../../styles/Global";
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  Alert,
   ImageBackground,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  StyleSheet,
+  Text,
 } from "react-native";
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { Feather, FontAwesome } from "@expo/vector-icons";
-import mainBg from "../../images/mainBG.jpg";
-import avatar from "../../images/avatar.jpg";
-import deleteBtn from "../../images/deleteBtn.png";
-import postimg from "../../images/post.jpg";
-import ProfilePost from "../../components/ProfilePost";
+import { useSelector, useDispatch } from "react-redux";
+import * as ImagePicker from "expo-image-picker";
+import { Feather } from "@expo/vector-icons";
 
-const ProfileScreen = () => {
-  // const [image, setImage] = useState(null);
-  // const [title, setTitle] = useState("");
-  // const [place, setPlace] = useState("");
-  // const isDataFullFilled = image && title && place;
+import Post from "../../components/Post";
+import { selectUser } from "../../redux/auth/authSelectors";
+import { selectPostsByOwner } from "../../redux/posts/postsSelectors";
+import {
+  changeAvatar,
+  deleteAvatar,
+  logOut,
+} from "../../redux/auth/authOperations";
+import mainBG from "../../images/mainBG.jpg";
+import addIcon from "../../images/addBtn.png";
+import removeIcon from "../../images/deleteBtn.png";
 
-  const { navigate, goBack } = useNavigation();
+import { profileStyles } from "./ProfileScreenStyles";
+
+export default function ProfileScreen() {
+  const { name, avatarURL } = useSelector(selectUser);
+  const posts = useSelector(selectPostsByOwner);
+  const dispatch = useDispatch();
+
+  async function selectAvatar() {
+    const { granted } = await ImagePicker.getMediaLibraryPermissionsAsync();
+    if (!granted) {
+      alert("Permission to access of the image library is required!");
+      return;
+    }
+
+    const { canceled, assets } = await ImagePicker.launchImageLibraryAsync({
+      quality: 1,
+      allowsEditing: true,
+      allowsMultipleSelection: false,
+    });
+    if (!canceled) {
+      dispatch(changeAvatar(assets[0].uri));
+    }
+  }
+
+  function removeAvatar() {
+    dispatch(deleteAvatar());
+  }
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles.mainBgImage}
-        source={mainBg}
-      ></ImageBackground>
-      <View style={profileStyles.container}>
-        <View style={styles.avatarWrapper}>
-          <Image style={styles.avatar} source={avatar} />
-          <View style={profileStyles.deleteAvatarBtn}>
-            <Image source={deleteBtn} style={{ width: 40, height: 40 }} />
+    <ScrollView style={{ backgroundColor: "#fff" }}>
+      <ImageBackground style={profileStyles.mainBG} source={mainBG}>
+        <TouchableOpacity
+          style={profileStyles.userAvatarWrapper}
+          onPress={avatarURL ? removeAvatar : selectAvatar}
+        >
+          {avatarURL && (
+            <Image style={profileStyles.avatar} source={{ uri: avatarURL }} />
+          )}
+          <View style={profileStyles.photoBtn}>
+            <Image
+              source={avatarURL ? removeIcon : addIcon}
+              style={{ width: 30, height: 30 }}
+            />
+          </View>
+        </TouchableOpacity>
+
+        <View style={profileStyles.profile}>
+          <TouchableOpacity
+            style={profileStyles.logoutBtn}
+            hitSlop={{ left: 32, right: 16, top: 32, bottom: 32 }}
+            onPress={() => dispatch(logOut())}
+          >
+            <Feather name="log-out" size={24} color="#BDBDBD" />
+          </TouchableOpacity>
+          <Text style={profileStyles.userName}>{name}</Text>
+          <View style={profileStyles.postsList}>
+            {posts.map((post) => {
+              return <Post key={post.id} post={post} />;
+            })}
           </View>
         </View>
-
-        <TouchableOpacity
-          style={profileStyles.logoutBtn}
-          hitSlop={{ left: 32, right: 16, top: 32, bottom: 32 }}
-          onPress={() => Alert.alert("Logout")}
-        >
-          <Feather name="log-out" size={24} color="#BDBDBD" />
-        </TouchableOpacity>
-        <Text style={styles.title}>Natali Romanova</Text>
-        <ProfilePost />
-      </View>
-    </View>
+      </ImageBackground>
+    </ScrollView>
   );
-};
-
-export default ProfileScreen;
+}

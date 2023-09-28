@@ -1,28 +1,46 @@
-import React from "react";
-import { styles } from "../../styles/Global";
-import { postStyles } from "./PostsScreenStyled";
-import { View, ScrollView, Image, Text } from "react-native";
-import avatar from "../../images/avatar.jpg";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { View, ScrollView, Image, Text, StyleSheet } from "react-native";
+
 import Post from "../../components/Post";
+import { selectPosts } from "../../redux/posts/postsSelectors";
+import { getAllPosts } from "../../redux/posts/postsOperations";
+import { selectUser } from "../../redux/auth/authSelectors";
+import defaultAvatar from "../../images/default-avatar.png";
+import { postsStyles } from "./PostsScreenStyled";
 
-const PostsScreen = () => {
+export default function PostsScreen() {
+  const { name, email, avatarURL } = useSelector(selectUser);
+  const posts = useSelector(selectPosts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, []);
+
   return (
-    <ScrollView style={postStyles.container}>
-      <View style={postStyles.profile}>
-        <Image source={avatar} style={postStyles.userImage} />
-        <View>
-          <Text style={postStyles.userName}>Natali Romanova</Text>
-          <Text style={postStyles.userEmail}>email@example.com</Text>
-        </View>
-      </View>
-      <Post />
-      {/* <View style={styles.postsList}>
-        {posts.map((post) => {
-          return <PostItem key={post.id} post={post} />;
-        })}
-      </View> */}
-    </ScrollView>
+    <>
+      {posts ? (
+        <ScrollView style={postsStyles.container}>
+          <View style={postsStyles.profile}>
+            <Image
+              source={avatarURL ? { uri: avatarURL } : defaultAvatar}
+              style={postsStyles.userImage}
+            />
+            <View>
+              <Text style={postsStyles.userName}>{name}</Text>
+              <Text style={postsStyles.userEmail}>{email}</Text>
+            </View>
+          </View>
+          <View style={postsStyles.postsList}>
+            {posts.map((post) => {
+              return <Post key={post.id} post={post} />;
+            })}
+          </View>
+        </ScrollView>
+      ) : (
+        <View>Loading</View>
+      )}
+    </>
   );
-};
-
-export default PostsScreen;
+}
