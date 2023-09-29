@@ -53,6 +53,35 @@ During the course of the project, Android Studio and Xcode were used extensively
 
 ## Installation
 
-1. Ensure you have [Node.js](https://nodejs.org/) and [Expo CLI](https://expo.dev/tools#cli) installed.
-2. Clone the repository to your local machine.
-3. Navigate to the project directory and run:
+### Emulator (virtual device)
+
+If you're new to Android Emulators, start by reviewing the [Android Studio emulator guide](https://developer.android.com/studio/run/emulator).
+
+#### Automatic Installation:
+
+- Once your build finishes, the CLI will automatically offer to download and install the build onto the Android Emulator. When you're prompted, press `Y` to accept the auto-installation.
+
+#### Manual Installation with Specific Build:
+
+- For those with multiple builds who wish to install a specific one, use the following command:
+  ```bash
+  eas build:run -p android
+  ```
+  This will present a list of all available builds for your project. Details provided include the build ID, time elapsed since creation, build number, version number, and relevant git commit info. If there are any invalid builds, they'll also be displayed.
+
+For visualization, consider the example:
+Running eas build:run command showcases a list of available builds for a project.
+
+Upon the completion of the build's installation, its icon will appear on the emulator's home screen. If you're working with a development build, make sure to initiate the development server. This can be done by running:
+
+```npx expo start
+
+```
+
+For SDK versions 48 and below, utilize the --dev-client flag.
+Installing the Latest Build:
+To directly install the most recent build on the Android Emulator, use:
+
+```eas build:run -p android --latest
+
+```
