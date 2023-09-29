@@ -19,8 +19,8 @@ import { register } from "../redux/auth/authOperations";
 
 import CredentialInputs from "../components/CredentialInputs";
 import mainBG from "../images/mainBG.jpg";
-import addIcon from "../images/addBtn.png";
-import removeIcon from "../images/deleteBtn.png";
+import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import styles from "../styles/Global";
 
 const RegistrationScreen = () => {
@@ -90,10 +90,11 @@ const RegistrationScreen = () => {
               <Image style={styles.avatar} source={{ uri: avatarLocalPath }} />
             )}
             <View style={styles.avatarBtn}>
-              <Image
-                source={avatarLocalPath ? removeIcon : addIcon}
-                style={{ width: 30, height: 30 }}
-              />
+              {avatarLocalPath ? (
+                <Entypo name="cross" size={24} color="#BDBDBD" />
+              ) : (
+                <Ionicons name="add-outline" size={24} color="#7365C3" />
+              )}
             </View>
           </TouchableOpacity>
 

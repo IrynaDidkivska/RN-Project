@@ -94,7 +94,7 @@ export default function CommentsScreen() {
           style={styles.sendBtn}
           onPress={() => message && onMessageSubmit()}
         >
-          <Ionicons name="arrow-up-circle" size={34} color="#FF6C00" />
+          <Ionicons name="arrow-up-circle" size={34} color="#7365C3" />
         </TouchableOpacity>
       </View>
     </KeyboardAwareScrollView>

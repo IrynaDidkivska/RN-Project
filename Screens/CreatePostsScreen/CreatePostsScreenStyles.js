@@ -70,7 +70,7 @@ export const createPostsStyles = StyleSheet.create({
     borderRadius: 100,
   },
   activeBtn: {
-    backgroundColor: "#FF6C00",
+    backgroundColor: "#7365C3",
   },
   submitBtnText: {
     color: "#BDBDBD",

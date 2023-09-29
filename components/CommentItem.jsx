@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 28,
     height: 28,
-    borderRadius: 16,
+    borderRadius: 20,
   },
   messageWrapper: {
     width: 300,

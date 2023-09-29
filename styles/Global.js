@@ -27,18 +27,23 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     backgroundColor: "#F6F6F6",
-    borderRadius: 16,
+    borderRadius: 20,
   },
   avatar: {
-    width: 28,
-    height: 28,
-    borderRadius: 16,
+    width: 120,
+    height: 120,
+    borderRadius: 20,
   },
   avatarBtn: {
     position: "absolute",
-    zIndex: 69,
+    width: 30,
+    height: 30,
     right: -14,
     bottom: 14,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+    borderRadius: 50,
   },
 
   title: {
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   inputFocused: {
-    borderColor: "#FF6C00",
+    borderColor: "#7365C3",
   },
   errorMessage: {
     position: "absolute",
@@ -80,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 43,
     paddingVertical: 16,
-    backgroundColor: "#FF6C00",
+    backgroundColor: "#7365C3",
     borderRadius: 100,
   },
   primaryBtnText: {

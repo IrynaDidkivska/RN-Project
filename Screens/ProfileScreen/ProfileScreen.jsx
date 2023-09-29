@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
-  StyleSheet,
   Text,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,8 +19,8 @@ import {
   logOut,
 } from "../../redux/auth/authOperations";
 import mainBG from "../../images/mainBG.jpg";
-import addIcon from "../../images/addBtn.png";
-import removeIcon from "../../images/deleteBtn.png";
+import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 import { profileStyles } from "./ProfileScreenStyles";
 
@@ -62,10 +61,11 @@ export default function ProfileScreen() {
             <Image style={profileStyles.avatar} source={{ uri: avatarURL }} />
           )}
           <View style={profileStyles.photoBtn}>
-            <Image
-              source={avatarURL ? removeIcon : addIcon}
-              style={{ width: 30, height: 30 }}
-            />
+            {avatarURL ? (
+              <Entypo name="cross" size={24} color="#BDBDBD" />
+            ) : (
+              <Ionicons name="add-outline" size={24} color="#7365C3" />
+            )}
           </View>
         </TouchableOpacity>
 

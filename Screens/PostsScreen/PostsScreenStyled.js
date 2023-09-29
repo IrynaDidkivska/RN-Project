@@ -20,6 +20,7 @@ export const postsStyles = StyleSheet.create({
   userName: {
     color: "#212121",
     fontSize: 13,
+    fontWeight: "bold",
   },
   userEmail: {
     color: "#212121",

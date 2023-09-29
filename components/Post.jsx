@@ -36,7 +36,7 @@ export default function Post({ post }) {
               style={{
                 transform: [{ scaleX: -1 }],
               }}
-              color={isAnyComment ? "#FF6C00" : "#BDBDBD"}
+              color={isAnyComment ? "#7365C3" : "#BDBDBD"}
             />
             <Text
               style={[styles.statText, !isAnyComment && styles.transparent]}
@@ -52,7 +52,7 @@ export default function Post({ post }) {
             <AntDesign
               name="like2"
               size={24}
-              color={likes ? "#FF6C00" : "#BDBDBD"}
+              color={likes ? "#7365C3" : "#BDBDBD"}
             />
             <Text style={[styles.statText, !likes && styles.transparent]}>
               {likes}

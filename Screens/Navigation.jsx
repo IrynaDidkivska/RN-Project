@@ -33,7 +33,6 @@ const Navigation = () => {
           component={CommentsScreen}
           options={{ headerShown: true }}
         />
-
         <Stack.Screen
           name="MapScreen"
           component={MapScreen}

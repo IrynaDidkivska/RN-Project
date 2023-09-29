@@ -13,8 +13,9 @@ import PostsScreen from "./PostsScreen/PostsScreen";
 const Tabs = createBottomTabNavigator();
 
 export default function Home() {
-  const { navigate, goBack } = useNavigation();
+  const { navigate, goBack, canGoBack } = useNavigation();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function Home() {
     <TouchableOpacity
       style={{ marginLeft: 16 }}
       hitSlop={{ left: 16, right: 32 }}
-      onPress={goBack}
+      onPress={() => navigate("ProfileScreen")}
     >
       {tabBarIcon("arrow-left", "#212121")}
     </TouchableOpacity>
@@ -57,7 +58,7 @@ export default function Home() {
           paddingTop: 10,
         },
         tabBarShowLabel: false,
-        tabBarActiveBackgroundColor: "#FF6C00",
+        tabBarActiveBackgroundColor: "#7365C3",
         tabBarActiveTintColor: "#ffffff",
         tabBarInactiveTintColor: "rgba(33, 33, 33, 0.8)",
         tabBarItemStyle: {
@@ -89,6 +90,7 @@ export default function Home() {
             height: 0,
           },
           tabBarStyle: { display: "none" },
+          headerShown: true,
           headerLeft: () => goBackBtn,
           tabBarIcon: ({ color }) => tabBarIcon("plus", color),
         }}

@@ -16,19 +16,19 @@ This social media app offers the following notable features:
    - New users can sign up.
    - Existing users can effortlessly log in to access their personalized content.
 
-   ![Registration Screenshot](/images/regscreen.jpg)
+   ![Registration Screenshot](/images/reg.jpg)
 
 2. **Photo Upload**:
 
    - Share your moments by uploading photos from your device.
 
-   ![Upload Screenshot](/images/createpost.jpg)
+   ![Upload Screenshot](/images/addpost.jpg)
 
 3. **Commenting**:
 
    - Engage with posts by leaving your thoughts and reading others'.
 
-   ![Comment Screenshot](/images/addcomments.jpg)
+   ![Comment Screenshot](/images/comment.jpg)
 
 4. **Liking**:
 
