@@ -6,6 +6,7 @@ Welcome to this React Native Social Media App! Dive into a world where sharing, 
 
 1. [Features](#features)
 2. [Technologies Used](#technologies-used)
+3. [Installation](#installation)
 
 ## Features
 
@@ -49,3 +50,9 @@ The foundation of our project rests on these technologies and libraries:
 - [**expo-location**](https://docs.expo.dev/versions/latest/sdk/location/): Used for fetching device location information.
 
 During the course of the project, Android Studio and Xcode were used extensively to ensure the app's performance and compatibility across both Android and iOS platforms.
+
+## Installation
+
+1. Ensure you have [Node.js](https://nodejs.org/) and [Expo CLI](https://expo.dev/tools#cli) installed.
+2. Clone the repository to your local machine.
+3. Navigate to the project directory and run:
